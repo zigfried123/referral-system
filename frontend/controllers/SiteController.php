@@ -1,7 +1,11 @@
 <?php
 namespace frontend\controllers;
 
+use app\components\Events;
+use app\components\MyBehavior;
 use Yii;
+use yii\base\Behavior;
+use yii\base\Event;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -46,6 +50,9 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+            'behavior' => [
+                'class'=>MyBehavior::className(),
+            ]
         ];
     }
 
@@ -72,7 +79,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        return $this->render('index.php', ['username' => 'Alex']);
     }
 
     /**

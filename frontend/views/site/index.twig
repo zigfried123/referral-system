@@ -1,0 +1,16 @@
+
+{{ username }}
+
+{% set foo = {'n': '1'} %}
+
+{{ foo['n'] }}
+
+{% set list=[1,2,3] %}
+
+{{ list|join(', ') }}
+
+{% filter upper %}
+    This text becomes uppercase
+{% endfilter %}
+
+{{ "now"|date("d/m/Y H:i", timezone="Russia") }}
