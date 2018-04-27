@@ -3,6 +3,8 @@ namespace frontend\controllers;
 
 use app\components\Events;
 use app\components\MyBehavior;
+use common\models\User;
+use frontend\models\ReferralSystem;
 use Yii;
 use yii\base\Behavior;
 use yii\base\Event;
@@ -51,7 +53,7 @@ class SiteController extends Controller
                 ],
             ],
             'behavior' => [
-                'class'=>MyBehavior::className(),
+                'class' => MyBehavior::className(),
             ]
         ];
     }
@@ -79,7 +81,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
         return $this->render('index.php', ['username' => 'Alex']);
     }
 
@@ -103,6 +104,13 @@ class SiteController extends Controller
             return $this->render('login', [
                 'model' => $model,
             ]);
+        }
+    }
+
+    public function actionRegister($user = null)
+    {
+        if (isset($user)) {
+            $userId = User::findByUsername($user)->id;
         }
     }
 
@@ -148,7 +156,9 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        $link = ReferralSystem::getLink();
+
+        return $this->render('about',compact('link'));
     }
 
     /**
