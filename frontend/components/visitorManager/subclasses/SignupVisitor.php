@@ -1,5 +1,5 @@
 <?php
-namespace common\components\visitorManager\subclasses;
+namespace frontend\components\visitorManager\subclasses;
 
 use yii\web\Session;
 

@@ -1,7 +1,7 @@
 <?php
-namespace common\components\visitorManager;
+namespace frontend\components\visitorManager;
 
-use common\components\visitorManager\subclasses\SignupVisitor;
+use frontend\components\visitorManager\subclasses\SignupVisitor;
 
 abstract class VisitorManager
 {

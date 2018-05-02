@@ -1,7 +1,7 @@
 <?php
-namespace common\components;
+namespace frontend\components;
 
-use common\components\visitorManager\VisitorManager;
+use frontend\components\visitorManager\VisitorManager;
 use yii\base\Behavior;
 use yii\web\Controller;
 
