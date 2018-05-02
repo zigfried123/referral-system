@@ -10,6 +10,15 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="alert alert-success">
+<?php
+
+if(Yii::$app->session->hasFlash('fromUser') ){
+    echo sprintf(Yii::t('ref','You came from %s'),Yii::$app->session->getFlash('fromUser'));
+}
+?>
+</div>
+
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 

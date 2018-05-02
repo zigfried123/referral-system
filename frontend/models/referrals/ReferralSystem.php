@@ -17,4 +17,9 @@ class ReferralSystem
         return User::findUserNamesById(Referrals::getReferralsId($userId));
     }
 
+    public static function getFromUserName($userId)
+    {
+        return User::findUserNameById(Referrals::getUserId($userId));
+    }
+
 }

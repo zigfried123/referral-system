@@ -125,7 +125,9 @@ class SiteController extends Controller
 
         $referrals = ReferralSystem::getReferrals($userId);
 
-        return $this->render('profile', compact('link','referrals'));
+        $fromUser = ReferralSystem::getFromUserName($userId);
+
+        return $this->render('profile', compact('link','referrals','fromUser'));
     }
 
     /**
@@ -143,6 +145,10 @@ class SiteController extends Controller
                     return $this->goHome();
                 }
             }
+        }
+
+        if($ref = get('ref') !== null) {
+            Yii::$app->session->setFlash('fromUser', get('ref'));
         }
 
         return $this->render('signup', [

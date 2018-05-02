@@ -82,4 +82,9 @@ class Referrals extends \yii\db\ActiveRecord
             return $item['ref_id'];
         },self::find()->select('ref_id')->where(['user_id' => $userId])->asArray()->all());
     }
+
+    public static function getUserId($userId)
+    {
+        return self::find()->select('user_id')->where(['ref_id'=>$userId])->scalar();
+    }
 }
