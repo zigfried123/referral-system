@@ -1,13 +1,12 @@
 <?php
 namespace common\components;
 
+use common\components\visitorManager\VisitorManager;
 use yii\base\Behavior;
 use yii\web\Controller;
-use yii\web\Session;
 
 class VisitorObserver extends Behavior
 {
-
     public function events()
     {
         return [Controller::EVENT_BEFORE_ACTION => 'beforeAction'];
@@ -15,9 +14,8 @@ class VisitorObserver extends Behavior
 
     public function beforeAction($event)
     {
-        if ($event->action->id === 'signup' && !empty(get('ref'))){
-            (new Session())->set('ref',get('ref'));
-        }
+        $visitor = VisitorManager::getInstance($event);
 
+        return is_callable([$visitor,'execute']) ? $visitor->execute() : false;
     }
 }
