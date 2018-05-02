@@ -20,12 +20,12 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property integer $ref_count
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
 
     /**
      * {@inheritdoc}
@@ -54,6 +54,11 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
+    }
+
+    public static function getUserName()
+    {
+        return Yii::$app->user->identity->username;
     }
 
     /**
@@ -113,7 +118,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -186,4 +191,17 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function findUserByRef($ref)
+    {
+        return $this->find()->where(['username' => $ref])->one();
+    }
+
+    public static function findUserNamesById(array $usersId)
+    {
+        return array_map(function ($item) {
+            return $item['username'];
+        }, self::find()->select('username')->where(['id' => $usersId])->asArray()->all());
+    }
+
 }
