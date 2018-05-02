@@ -1,8 +1,11 @@
 <?php
 namespace frontend\models;
 
+use \app\models\referrals\Referrals;
+use yii\base\Exception;
 use yii\base\Model;
 use common\models\User;
+use Yii;
 
 /**
  * Signup form
@@ -12,7 +15,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-
+    public $ref_count;
 
     /**
      * {@inheritdoc}
@@ -20,6 +23,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
+            ['ref_count', 'integer'],
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
@@ -36,23 +40,36 @@ class SignupForm extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
-    public function signup()
+    public function signup($ref)
     {
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+
+        $transaction = \Yii::$app->db->beginTransaction();
+
+        try {
+            if ($user->save()) {
+                if (isset($ref)) {
+                    $refId = $user->id;
+                    $findUser = $user->findUserByRef($ref);
+                    $referrals = new Referrals();
+                    /* @var $findUser mixed*/
+                    $referrals->saveModel($refId, $findUser->id);
+                }
+                $transaction->commit();
+                return $user;
+            }
+        } catch (Exception $e) {
+            $transaction->rollback();
+        }
+        return false;
     }
 }
