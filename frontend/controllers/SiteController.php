@@ -47,7 +47,7 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-            'visitorObserver' => VisitorObserver::className(),
+            'visitorObserver' => \frontend\components\VisitorObserver::className(),
         ];
     }
 
