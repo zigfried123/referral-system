@@ -9,11 +9,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <p><b>Your referral link:</b>
 <code><?=$link?></code></p>
-<p><b>In current you have these referrals:</b></p>
 <?php
 $n=0;
-foreach($referrals as $referral){
-    echo sprintf('%d. <i>%s</i>',++$n,$referral).'<br>';
+if(!empty($referrals)) {
+?>
+    <p><b>In current you have these referrals:</b></p>
+<?php
+    foreach ($referrals as $referral) {
+        echo sprintf('%d. <i>%s</i>', ++$n, $referral) . '<br>';
+    }
 }
 ?>
 
