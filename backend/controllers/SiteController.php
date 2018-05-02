@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use app\models\Message;
+use app\models\SourceMessage;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -26,7 +28,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'add-translate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -61,6 +63,13 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionAddTranslate()
+    {
+        $sourceMessage = new SourceMessage();
+        $message = Message::find()->where(['language'=>'ru-RU'])->one();
+       return $this->render('addTranslate',compact('sourceMessage','message'));
     }
 
     /**
