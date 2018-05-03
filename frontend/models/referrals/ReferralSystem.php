@@ -4,22 +4,30 @@ namespace frontend\models\referrals;
 
 use \app\models\referrals\Referrals;
 use common\models\User;
+use yii\helpers\Url;
 
 class ReferralSystem
 {
-    public static function getLink()
+    private $userId;
+
+    public function __construct($userId)
     {
-        return \Yii::$app->urlManager->createAbsoluteUrl(['signup','ref'=>User::getUserName()]);
+        $this->userId = $userId;
     }
 
-    public static function getReferrals($userId)
+    public function getLink()
     {
-        return User::findUserNamesById(Referrals::getReferralsId($userId));
+        return \Yii::$app->urlManager->createAbsoluteUrl(['signup','ref'=>User::getEmail()]);
     }
 
-    public static function getFromUserName($userId)
+    public function getReferrals()
     {
-        return User::findUserNameById(Referrals::getUserId($userId));
+        return User::findUserNamesById(Referrals::getReferralsId($this->userId));
+    }
+
+    public function getFromUserEmail()
+    {
+        return User::findEmailById(Referrals::getUserId($this->userId));
     }
 
 }

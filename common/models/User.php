@@ -56,9 +56,9 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function getUserName()
+    public static function getEmail()
     {
-        return Yii::$app->user->identity->username;
+        return Yii::$app->user->identity->email;
     }
 
     /**
@@ -192,9 +192,9 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    public function findUserByRef($ref)
+    public function findEmailByRef($ref)
     {
-        return $this->find()->where(['username' => $ref])->one();
+        return $this->find()->where(['email' => $ref])->one();
     }
 
     public static function findUserNamesById(array $usersId)
@@ -204,9 +204,9 @@ class User extends ActiveRecord implements IdentityInterface
         }, self::find()->select('username')->where(['id' => $usersId])->asArray()->all());
     }
 
-    public static function findUserNameById($id)
+    public static function findEmailById($id)
     {
-        return self::find()->select('username')->where(['id'=>$id])->scalar();
+        return self::find()->select('email')->where(['id'=>$id])->scalar();
     }
 
 }

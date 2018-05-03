@@ -119,15 +119,17 @@ class SiteController extends Controller
      */
     public function actionProfile()
     {
-        $link = ReferralSystem::getLink();
-
         $userId = Yii::$app->user->id;
 
-        $referrals = ReferralSystem::getReferrals($userId);
+        $referralSystem = new ReferralSystem($userId);
 
-        $fromUser = ReferralSystem::getFromUserName($userId);
+        $link = $referralSystem->getLink();
 
-        return $this->render('profile', compact('link','referrals','fromUser'));
+        $referrals = $referralSystem->getReferrals();
+
+        $fromUserEmail = $referralSystem->getFromUserEmail();
+
+        return $this->render('profile', compact('link','referrals','fromUserEmail'));
     }
 
     /**
