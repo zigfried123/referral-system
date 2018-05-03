@@ -16,6 +16,6 @@ class VisitorObserver extends Behavior
     {
         $visitor = VisitorManager::getInstance($event);
 
-        return is_callable([$visitor,'execute']) ? $visitor->execute() : false;
+        return is_callable([$visitor,'execute']) ? $visitor->execute() : null;
     }
 }

@@ -57,11 +57,9 @@ class Referrals extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function saveModel($refId, $userId)
+    public function saveModel()
     {
-        $this->user_id = $userId;
-        $this->ref_id = $refId;
-        if ($this->find()->where(['ref_id' => $refId])->exists() || !$this->save())
+        if ($this->find()->where(['ref_id' => $this->ref_id])->exists() || !$this->save())
             throw new NotSaveException('Model have been not saved');
 
         $this->updateCounterRefs();

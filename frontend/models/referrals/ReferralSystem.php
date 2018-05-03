@@ -4,7 +4,6 @@ namespace frontend\models\referrals;
 
 use \app\models\referrals\Referrals;
 use common\models\User;
-use yii\helpers\Url;
 
 class ReferralSystem
 {

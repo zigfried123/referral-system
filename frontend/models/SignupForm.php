@@ -60,9 +60,9 @@ class SignupForm extends Model
                 if (isset($ref)) {
                     $refId = $user->id;
                     $findUser = $user->findEmailByRef($ref);
-                    $referrals = new Referrals();
                     /* @var $findUser mixed*/
-                    $referrals->saveModel($refId, $findUser->id);
+                    $referrals = new Referrals(['ref_id'=>$refId,'user_id'=>$findUser->id]);
+                    $referrals->saveModel();
                 }
                 $transaction->commit();
                 return $user;

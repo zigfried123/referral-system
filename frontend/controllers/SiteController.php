@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use common\components\VisitorObserver;
+use frontend\components\VisitorObserver;
 use frontend\models\referrals\ReferralSystem;
 use Yii;
 use yii\web\BadRequestHttpException;
@@ -47,7 +47,7 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-            'visitorObserver' => \frontend\components\VisitorObserver::className(),
+            'visitorObserver' => VisitorObserver::className(),
         ];
     }
 
@@ -150,7 +150,7 @@ class SiteController extends Controller
         }
 
         if($ref = get('ref') !== null) {
-            Yii::$app->session->setFlash('fromUser', get('ref'));
+            Yii::$app->session->setFlash('fromEmail', get('ref'));
         }
 
         return $this->render('signup', [

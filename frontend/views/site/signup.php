@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 if(Yii::$app->session->hasFlash('fromUser') ){
-    echo sprintf(Yii::t('ref','You came from %s'),Yii::$app->session->getFlash('fromUser'));
+    echo sprintf(Yii::t('ref','You came from %s'),Yii::$app->session->getFlash('fromEmail'));
 }
 ?>
 </div>
