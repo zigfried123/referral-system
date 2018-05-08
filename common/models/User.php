@@ -197,11 +197,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->find()->where(['email' => $ref])->one();
     }
 
-    public static function findUserNamesById(array $usersId)
+    public static function findRefEmailsById(array $usersId)
     {
         return array_map(function ($item) {
-            return $item['username'];
-        }, self::find()->select('username')->where(['id' => $usersId])->asArray()->all());
+            return $item['email'];
+        }, self::find()->select('email')->where(['id' => $usersId])->asArray()->all());
     }
 
     public static function findEmailById($id)

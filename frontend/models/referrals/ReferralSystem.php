@@ -21,7 +21,7 @@ class ReferralSystem
 
     public function getReferrals()
     {
-        return User::findUserNamesById(Referrals::getReferralsId($this->userId));
+        return User::findRefEmailsById(Referrals::getReferralsId($this->userId));
     }
 
     public function getFromUserEmail()
