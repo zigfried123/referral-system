@@ -67,8 +67,6 @@ class Referrals extends \yii\db\ActiveRecord
 
     public function updateCounterRefs()
     {
-        $this->ref_count++;
-
         if (!$this->save())
             throw new NotSaveException('Counters have been not increased');
 

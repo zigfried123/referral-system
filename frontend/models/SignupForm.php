@@ -15,7 +15,6 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-    public $ref_count;
 
     /**
      * {@inheritdoc}
@@ -23,7 +22,6 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['ref_count', 'integer'],
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
