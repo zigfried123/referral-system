@@ -13,7 +13,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php if ($fromUserEmail) { ?>
     <?= Yii::t('ref', 'You came from {user}', ['user' => $fromUserEmail]) ?><br>
 <?php } ?>
-    <b>In current you have <?= count($referrals) ?> referrals:</b><br>
+<?php
+$num = count($referrals);
+$text = "In current you have $num referrals";
+if($num>0){
+    $text.=':';
+}
+?>
+    <b><?=$text?></b><br>
 <?php
 if (!empty($referrals)) {
     $n = 0;
